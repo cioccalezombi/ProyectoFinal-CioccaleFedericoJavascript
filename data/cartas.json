@@ -1,0 +1,98 @@
+[
+  {
+    "id": 1,
+    "nombre": "Aegis",
+    "color": "negro",
+    "legendaria": false,
+    "imagen": "../assets/cartas/aegis.png",
+    "precio": 500
+  },
+  {
+    "id": 2,
+    "nombre": "Alena",
+    "color": "rojo",
+    "legendaria": true,
+    "imagen": "../assets/cartas/alena.png",
+    "precio": 12000
+  },
+  {
+    "id": 3,
+    "nombre": "Alesha",
+    "color": "rojo",
+    "legendaria": true,
+    "imagen": "../assets/cartas/alesha.png",
+    "precio": 8750
+  },
+  {
+    "id": 4,
+    "nombre": "Arashin",
+    "color": "dorado",
+    "legendaria": false,
+    "imagen": "../assets/cartas/arashin.png",
+    "precio": 1250
+  },
+  {
+    "id": 5,
+    "nombre": "Archfiend",
+    "color": "oscuro",
+    "legendaria": false,
+    "imagen": "../assets/cartas/archfiend.png",
+    "precio": 800
+  },
+  {
+    "id": 6,
+    "nombre": "Bygone",
+    "color": "negro",
+    "legendaria": false,
+    "imagen": "../assets/cartas/bygone.png",
+    "precio": 600
+  },
+  {
+    "id": 7,
+    "nombre": "Elranel",
+    "color": "verde",
+    "legendaria": false,
+    "imagen": "../assets/cartas/elranel.png",
+    "precio": 1000
+  },
+  {
+    "id": 8,
+    "nombre": "Encantadora",
+    "color": "oscuro",
+    "legendaria": false,
+    "imagen": "../assets/cartas/encantadora.png",
+    "precio": 900
+  },
+  {
+    "id": 9,
+    "nombre": "Hechicera",
+    "color": "azul",
+    "legendaria": false,
+    "imagen": "../assets/cartas/hechicera.png",
+    "precio": 1500
+  },
+  {
+    "id": 10,
+    "nombre": "Lyna",
+    "color": "rojo",
+    "legendaria": false,
+    "imagen": "../assets/cartas/lyna.png",
+    "precio": 700
+  },
+  {
+    "id": 11,
+    "nombre": "Rhoda",
+    "color": "dorado",
+    "legendaria": true,
+    "imagen": "../assets/cartas/rhoda.png",
+    "precio": 15000
+  },
+  {
+    "id": 12,
+    "nombre": "Selise",
+    "color": "dorado",
+    "legendaria": false,
+    "imagen": "../assets/cartas/bygone.png",
+    "precio": 1100
+  }
+]
