@@ -20,7 +20,15 @@ body {
 }
 
 .card {
-  background-color: rgba(146, 146, 146, 0.1); /* fondo negro con transparencia */
+  background-color: rgba(240, 240, 240, 0.1); /* fondo negro con transparencia */
   color: white;                         /* texto blanco */
   border-radius: 15px;
+}
+
+.btn-carrito {
+  width: 150px; /* Ajusta este valor según necesites */
+}
+
+.filtro-select {
+  width: 500px; /* Ajusta el valor según necesites */
 }
