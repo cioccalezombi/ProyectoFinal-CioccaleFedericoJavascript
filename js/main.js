@@ -34,14 +34,14 @@ function renderizarCartas(lista) {
     const cartaHTML = document.createElement("div");
     cartaHTML.className = "col-sm-6 col-md-4 col-lg-3";
     cartaHTML.innerHTML = `
-<div class="card h-100 shadow-sm text-center">
+<div class="button-55 card h-100 shadow-sm text-center">
         <img src="${carta.imagen}" class="card-img-top" alt="${carta.nombre}">
         <div class="card-body">
           <h5 class="card-title">${carta.nombre}</h5>
           <p class="card-text">Color: ${carta.color}</p>
           <p class="card-text">Legendaria: ${carta.legendaria ? "Sí" : "No"}</p>
           <p class="card-text">Precio: $${carta.precio}</p>
-          <button class="btn btn-success btn-sm" onclick="agregarAlCarrito(${carta.id})">Agregar al carrito</button>
+          <button class="button-55 btn btn-success btn-sm" onclick="agregarAlCarrito(${carta.id})">Agregar al carrito</button>
         </div>
       </div>
     `;
