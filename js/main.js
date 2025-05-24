@@ -34,7 +34,7 @@ function renderizarCartas(lista) {
     const cartaHTML = document.createElement("div");
     cartaHTML.className = "col-sm-6 col-md-4 col-lg-3";
     cartaHTML.innerHTML = `
-      <div class="card h-100 shadow-sm">
+<div class="card h-100 shadow-sm text-center">
         <img src="${carta.imagen}" class="card-img-top" alt="${carta.nombre}">
         <div class="card-body">
           <h5 class="card-title">${carta.nombre}</h5>
