@@ -40,6 +40,7 @@ function renderizarCartas(lista) {
           <h5 class="card-title">${carta.nombre}</h5>
           <p class="card-text">Color: ${carta.color}</p>
           <p class="card-text">Legendaria: ${carta.legendaria ? "Sí" : "No"}</p>
+          <p class="card-text">Precio: $${carta.precio}</p>
           <button class="btn btn-success btn-sm" onclick="agregarAlCarrito(${carta.id})">Agregar al carrito</button>
         </div>
       </div>
