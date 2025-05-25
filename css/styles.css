@@ -1,41 +1,93 @@
 body {
-  background: radial-gradient(circle, #1a1a1a, #000000);
-  color: white; /* Para que el texto sea visible */
+  background: black;
+  color: white;
   margin: 0;
   height: 100vh;
 }
+
 .banner {
-    background: rgb(0, 0, 0);
-    height: 300px; /* Ajusta según necesites */
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  background: rgb(0, 0, 0);
+  height: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-
 .banner img {
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain; /* O prueba "cover" si quieres que la imagen ocupe todo */
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
 }
 
 .card {
-  background-color: rgba(29, 29, 29, 0.4); /* Color perlado con transparencia */
-  color: white;                         /* texto blanco */
-  border-radius: 15px;
+  background-color: black;
+  color: white;
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  background-size: cover;
+  background-position: center;
+  transform: rotate(-8deg);
+  transition: all 0.4s ease;
+  overflow: hidden;
+  margin-bottom: 5rem;
 }
 
-.btn-carrito, .filtro-select {
-  width: 150px; /* Ajusta el valor según necesites */
+.card:hover {
+  transform: rotate(0deg) scale(1.05);
+  box-shadow: 0 15px 30px rgba(255, 255, 255, 0.3);
+  z-index: 2;
+}
+
+.card .price-tag {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: rgba(0, 0, 0, 0.7);
+  color: #fff;
+  padding: 5px 10px;
+  font-size: 50px;
+  transform: rotate(-8deg);
+  transition: all 0.4s ease;
+}
+
+.card-body {
+  padding: 10px;
+  z-index: 1;
+}
+
+.btn-carrito,
+.filtro-select {
+  width: 150px;
 }
 
 .navbar-custom {
-  background-color: rgba(29, 29, 29, 0.4 ); /* Color perlado con transparencia */
+  background-color: rgba(29, 29, 29, 0.4);
 }
 
+@font-face {
+  font-family: 'MiFuente';
+  src: url('/assets/fonts/2.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
 
+.card-title {
+  font-family: 'MiFuente', sans-serif;
+  font-size: 2.3rem;
+  margin-bottom: 25px;
+}
 
-/* CSS */
+.btn-outline-light {
+  border-color: white;
+  color: white;
+}
+
+.btn-outline-light:hover {
+  background-color: white;
+  color: black;
+}
+
 .button-55 {
   align-self: center;
   background-color: #fff;
@@ -52,10 +104,10 @@ body {
   cursor: pointer;
   display: inline-block;
   font-family: Neucha, sans-serif;
-  font-size: 1rem;
+  font-size: 2rem;
   line-height: 23px;
   outline: none;
-  padding: .75rem;
+  padding: .75rem 1.5rem;
   text-decoration: none;
   transition: all 235ms ease-in-out;
   border-bottom-left-radius: 15px 255px;
@@ -74,4 +126,10 @@ body {
 
 .button-55:focus {
   box-shadow: rgba(0, 0, 0, .3) 2px 8px 4px -6px;
+}
+
+@media (max-width: 575px) {
+  .card {
+    transform: none !important;
+  }
 }

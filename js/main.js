@@ -5,74 +5,71 @@ let carrito = [];
 const catalogo = document.getElementById("catalogo");
 const colorFiltro = document.getElementById("colorFiltro");
 const legendariaFiltro = document.getElementById("legendariaFiltro");
+const verCarritoBtn = document.getElementById("verCarritoBtn");
+const vaciarCarritoBtn = document.getElementById("vaciarCarritoBtn");
+const carritoCantidad = document.getElementById("carritoCantidad");
 
-// Cargar cartas desde JSON
-fetch("data/cartas.json")
-  .then(res => res.json())
-  .then(data => {
-    cartas = data;
-    renderizarCartas(cartas);
-  })
-  .catch(err => console.error("Error al cargar cartas:", err));
-
-  document.addEventListener("DOMContentLoaded", () => {
+// Cargar cartas desde JSON al cargar la página
+document.addEventListener("DOMContentLoaded", () => {
   fetch("data/cartas.json")
     .then(response => response.json())
     .then(data => {
       cartas = data;
       renderizarCartas(cartas);
-      cargarCarritoDesdeStorage(); // ✅ Cargar carrito al inicio
-    });
+      cargarCarritoDesdeStorage(); // Cargar carrito si ya existía
+    })
+    .catch(err => console.error("Error al cargar cartas:", err));
 });
 
-  
-
-// Función para renderizar cartas
+// Renderizar cartas en el catálogo
 function renderizarCartas(lista) {
-  catalogo.innerHTML = ""; // Limpiar catálogo
+  catalogo.innerHTML = "";
   lista.forEach(carta => {
     const cartaHTML = document.createElement("div");
     cartaHTML.className = "col-sm-6 col-md-4 col-lg-3";
     cartaHTML.innerHTML = `
-<div class="button-55 card h-100 shadow-sm text-center">
+      <div class="card h-100 shadow-sm text-center" style="cursor:pointer;">
         <img src="${carta.imagen}" class="card-img-top" alt="${carta.nombre}">
         <div class="card-body">
-          <h5 class="card-title">${carta.nombre}</h5>
-          <p class="card-text">Color: ${carta.color}</p>
-          <p class="card-text">Legendaria: ${carta.legendaria ? "Sí" : "No"}</p>
-          <p class="card-text">Precio: $${carta.precio}</p>
-          <button class="button-55 btn btn-success btn-sm" onclick="agregarAlCarrito(${carta.id})">Agregar al carrito</button>
+          <p class="card-text price-tag button-55">$${carta.precio}</p>
         </div>
       </div>
     `;
+
+    // Confirmar antes de agregar al carrito
+    cartaHTML.querySelector('.card').addEventListener('click', () => {
+      Swal.fire({
+        title: `¿Agregar "${carta.nombre}" al carrito?`,
+        text: "¿Estás seguro que deseas agregar esta carta?",
+        icon: "question",
+        showCancelButton: true,
+        confirmButtonText: "Sí, agregar",
+        cancelButtonText: "Cancelar"
+      }).then(result => {
+        if (result.isConfirmed) {
+          agregarAlCarrito(carta.id);
+        }
+      });
+    });
+
     catalogo.appendChild(cartaHTML);
   });
 }
 
-// Agregar al carrito
-function agregarAlCarrito(id) {
-  const seleccionada = cartas.find(c => c.id === id);
-  carrito.push(seleccionada);
-  console.log("Carrito:", carrito);
-}
-
-// Escuchar cambios en filtros
+// Aplicar filtros por color y legendaria
 colorFiltro.addEventListener("change", aplicarFiltros);
 legendariaFiltro.addEventListener("change", aplicarFiltros);
 
-// Función para aplicar filtros
 function aplicarFiltros() {
   const colorSeleccionado = colorFiltro.value;
   const legendariaSeleccionada = legendariaFiltro.value;
 
   let resultado = [...cartas];
 
-  // Filtrar por color
   if (colorSeleccionado !== "todos") {
     resultado = resultado.filter(c => c.color === colorSeleccionado);
   }
 
-  // Filtrar por si es legendaria
   if (legendariaSeleccionada !== "todas") {
     const esLegendaria = legendariaSeleccionada === "true";
     resultado = resultado.filter(c => c.legendaria === esLegendaria);
@@ -81,11 +78,7 @@ function aplicarFiltros() {
   renderizarCartas(resultado);
 }
 
-const verCarritoBtn = document.getElementById("verCarritoBtn");
-const vaciarCarritoBtn = document.getElementById("vaciarCarritoBtn");
-const carritoCantidad = document.getElementById("carritoCantidad");
-
-// Mostrar carrito con SweetAlert
+// Mostrar el carrito con SweetAlert
 verCarritoBtn.addEventListener("click", () => {
   if (carrito.length === 0) {
     Swal.fire("Tu carrito está vacío.");
@@ -128,17 +121,13 @@ vaciarCarritoBtn.addEventListener("click", () => {
   });
 });
 
-// Actualizar el contador del botón
-function actualizarContadorCarrito() {
-  carritoCantidad.textContent = carrito.length;
-}
-
-// Cada vez que agregamos al carrito:
+// Agregar carta al carrito
 function agregarAlCarrito(id) {
   const seleccionada = cartas.find(c => c.id === id);
   carrito.push(seleccionada);
   actualizarContadorCarrito();
   guardarCarritoEnStorage();
+
   Swal.fire({
     title: "Agregada al carrito",
     text: seleccionada.nombre,
@@ -148,12 +137,19 @@ function agregarAlCarrito(id) {
   });
 }
 
+// Contador en el botón de carrito
+function actualizarContadorCarrito() {
+  carritoCantidad.textContent = carrito.length;
+}
+
+// Vaciar carrito
 function vaciarCarrito() {
   carrito = [];
   actualizarContadorCarrito();
   guardarCarritoEnStorage();
 }
 
+// Guardar y cargar carrito desde localStorage
 function guardarCarritoEnStorage() {
   localStorage.setItem("carritoMagic", JSON.stringify(carrito));
 }
@@ -165,5 +161,3 @@ function cargarCarritoDesdeStorage() {
     actualizarContadorCarrito();
   }
 }
-
-
