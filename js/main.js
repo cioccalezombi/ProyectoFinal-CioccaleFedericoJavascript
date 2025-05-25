@@ -84,11 +84,16 @@ verCarritoBtn.addEventListener("click", () => {
     return;
   }
 
-  let html = "<ul class='list-group'>";
-  carrito.forEach(carta => {
-    html += `<li class="list-group-item">${carta.nombre} - ${carta.color}</li>`;
-  });
-  html += "</ul>";
+let html = "<ul class='list-group'>";
+carrito.forEach(carta => {
+  html += `
+    <li class="list-group-item d-flex align-items-center">
+      <img src="${carta.imagen}" alt="${carta.nombre}" style="width: 40px; height: 40px; margin-right: 10px;">
+      ${carta.nombre} - $${carta.precio}
+    </li>
+  `;
+});
+html += "</ul>";
 
   html += `
     <button id="finalizarCompraBtn" class="btn btn-success mt-3">Finalizar Compra</button>
