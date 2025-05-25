@@ -177,6 +177,8 @@ function mostrarFormularioCompra() {
     html: `
       <input id="nombreComprador" class="swal2-input" placeholder="Nombre">
       <input id="emailComprador" type="email" class="swal2-input" placeholder="Correo electrónico">
+      <input id="tarjetaComprador" class="swal2-input" placeholder="Número de tarjeta">
+      <input id="cvvComprador" class="swal2-input" placeholder="Código de seguridad (CVV)">
       <input id="direccionComprador" class="swal2-input" placeholder="Dirección">
     `,
     showCancelButton: true,
@@ -185,14 +187,16 @@ function mostrarFormularioCompra() {
     preConfirm: () => {
       const nombre = document.getElementById("nombreComprador").value;
       const email = document.getElementById("emailComprador").value;
+      const tarjeta = document.getElementById("tarjetaComprador").value;
+      const cvv = document.getElementById("cvvComprador").value;
       const direccion = document.getElementById("direccionComprador").value;
 
-      if (!nombre || !email || !direccion) {
-        Swal.showValidationMessage("Todos los campos son obligatorios");
+      if (!nombre || !email || !tarjeta || !cvv || !direccion) {
+        Swal.showValidationMessage("Todos los campos obligatorios deben estar completos.");
         return false;
       }
 
-      return { nombre, email, direccion, carrito };
+      return { nombre, email, tarjeta, cvv, direccion, carrito };
     }
   }).then((result) => {
     if (result.isConfirmed) {
