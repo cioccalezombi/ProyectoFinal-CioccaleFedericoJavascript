@@ -77,25 +77,38 @@ function aplicarFiltros() {
   renderizarCartas(resultado);
 }
 
-// Mostrar el carrito con botones de "Finalizar Compra" y "Vaciar Carrito"
+// Mostrar el carrito
 verCarritoBtn.addEventListener("click", () => {
   if (carrito.length === 0) {
     Swal.fire("Tu carrito está vacío.");
     return;
   }
 
-let html = "<ul class='list-group'>";
-carrito.forEach(carta => {
-  html += `
-    <li class="list-group-item d-flex align-items-center">
-      <img src="${carta.imagen}" alt="${carta.nombre}" style="width: 40px; height: 40px; margin-right: 10px;">
-      ${carta.nombre} - $${carta.precio}
-    </li>
-  `;
-});
-html += "</ul>";
+  let html = "<ul class='list-group'>";
+  carrito.forEach(carta => {
+    const subtotal = carta.precio * carta.cantidad;
+    html += `
+      <li class="list-group-item d-flex align-items-center justify-content-between">
+        <div class="d-flex align-items-center">
+          <img src="${carta.imagen}" alt="${carta.nombre}" style="width: 40px; height: 40px; margin-right: 10px;">
+          <div>
+            <div>${carta.nombre}</div>
+            <div>$${carta.precio} x ${carta.cantidad} = <strong>$${subtotal}</strong></div>
+          </div>
+        </div>
+        <div class="d-flex align-items-center">
+          <button class="btn btn-sm btn-outline-secondary me-1" onclick="cambiarCantidad(${carta.id}, -1)">-</button>
+          <button class="btn btn-sm btn-outline-secondary" onclick="cambiarCantidad(${carta.id}, 1)">+</button>
+        </div>
+      </li>
+    `;
+  });
+  html += "</ul>";
+
+  const total = carrito.reduce((acc, c) => acc + c.precio * c.cantidad, 0);
 
   html += `
+    <div class="mt-3 text-end"><strong>Total: $${total}</strong></div>
     <button id="finalizarCompraBtn" class="btn btn-success mt-3">Finalizar Compra</button>
     <button id="vaciarCarritoBtn" class="btn btn-danger mt-3">Vaciar Carrito</button>
   `;
@@ -116,10 +129,31 @@ html += "</ul>";
   });
 });
 
+// Cambiar cantidad de cartas
+function cambiarCantidad(id, cambio) {
+  const index = carrito.findIndex(c => c.id === id);
+  if (index !== -1) {
+    carrito[index].cantidad += cambio;
+    if (carrito[index].cantidad <= 0) {
+      carrito.splice(index, 1);
+    }
+    actualizarContadorCarrito();
+    guardarCarritoEnStorage();
+    verCarritoBtn.click(); // Reabrir modal actualizado
+  }
+}
+
 // Agregar carta al carrito
 function agregarAlCarrito(id) {
   const seleccionada = cartas.find(c => c.id === id);
-  carrito.push(seleccionada);
+  const index = carrito.findIndex(c => c.id === id);
+
+  if (index !== -1) {
+    carrito[index].cantidad += 1;
+  } else {
+    carrito.push({ ...seleccionada, cantidad: 1 });
+  }
+
   actualizarContadorCarrito();
   guardarCarritoEnStorage();
 
@@ -134,7 +168,8 @@ function agregarAlCarrito(id) {
 
 // Contador en el botón de carrito
 function actualizarContadorCarrito() {
-  carritoCantidad.textContent = carrito.length;
+  const totalCantidad = carrito.reduce((acc, c) => acc + c.cantidad, 0);
+  carritoCantidad.textContent = totalCantidad;
 }
 
 // Vaciar carrito con confirmación
@@ -177,37 +212,52 @@ function cargarCarritoDesdeStorage() {
 
 // Formulario de compra al finalizar
 function mostrarFormularioCompra() {
+  if (carrito.length === 0) {
+    Swal.fire("Carrito vacío", "Agregá cartas antes de finalizar la compra.", "info");
+    return;
+  }
+
+  const total = carrito.reduce((sum, carta) => sum + carta.precio * carta.cantidad, 0);
+
   Swal.fire({
-    title: "Completa tus datos para la compra",
+    title: "Finalizar Compra",
     html: `
-      <input id="nombreComprador" class="swal2-input" placeholder="Nombre">
-      <input id="emailComprador" type="email" class="swal2-input" placeholder="Correo electrónico">
-      <input id="tarjetaComprador" class="swal2-input" placeholder="Número de tarjeta">
-      <input id="cvvComprador" class="swal2-input" placeholder="Código de seguridad (CVV)">
-      <input id="direccionComprador" class="swal2-input" placeholder="Dirección">
+      <p>Total a pagar: <strong>$${total}</strong></p>
+      <input type="text" id="nombre" class="swal2-input" placeholder="Nombre completo" value="Federico Test">
+      <input type="text" id="direccion" class="swal2-input" placeholder="Dirección" value="Calle Siempre Viva 123">
+      <input type="text" id="tarjeta" class="swal2-input" placeholder="Número de tarjeta" value="1234 5678 9012 3456">
+      <input type="text" id="codigo" class="swal2-input" placeholder="Código de seguridad" value="123">
     `,
     showCancelButton: true,
-    confirmButtonText: "Comprar",
+    confirmButtonText: "Confirmar compra",
     cancelButtonText: "Cancelar",
     preConfirm: () => {
-      const nombre = document.getElementById("nombreComprador").value;
-      const email = document.getElementById("emailComprador").value;
-      const tarjeta = document.getElementById("tarjetaComprador").value;
-      const cvv = document.getElementById("cvvComprador").value;
-      const direccion = document.getElementById("direccionComprador").value;
+      const nombre = document.getElementById("nombre").value.trim();
+      const direccion = document.getElementById("direccion").value.trim();
+      const tarjeta = document.getElementById("tarjeta").value.trim();
+      const codigo = document.getElementById("codigo").value.trim();
 
-      if (!nombre || !email || !tarjeta || !cvv || !direccion) {
-        Swal.showValidationMessage("Todos los campos obligatorios deben estar completos.");
+      if (!nombre || !direccion || !tarjeta || !codigo) {
+        Swal.showValidationMessage("Por favor, completá todos los campos.");
         return false;
       }
 
-      return { nombre, email, tarjeta, cvv, direccion, carrito };
+      return { nombre, direccion, tarjeta, codigo };
     }
   }).then((result) => {
     if (result.isConfirmed) {
-      console.log("Datos de la compra:", result.value);
-      Swal.fire("¡Compra realizada!", "Te contactaremos pronto.", "success");
-      vaciarCarrito();
+      carrito = [];
+      guardarCarritoEnStorage();
+      actualizarContadorCarrito();
+
+      Swal.fire({
+        icon: "success",
+        title: "¡Compra realizada!",
+        text: `Gracias, ${result.value.nombre}. El total fue de $${total}.`,
+        confirmButtonText: "Aceptar"
+      }).then(() => {
+        verCarritoBtn.click(); // Refresca el modal del carrito vacío
+      });
     }
   });
 }
