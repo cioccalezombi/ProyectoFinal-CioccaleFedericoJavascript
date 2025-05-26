@@ -65,12 +65,7 @@ body {
   background-color: rgba(29, 29, 29, 0.4);
 }
 
-@font-face {
-  font-family: 'MiFuente';
-  src: url('/assets/fonts/2.woff2') format('woff2');
-  font-weight: normal;
-  font-style: normal;
-}
+
 
 .card-title {
   font-family: 'MiFuente', sans-serif;

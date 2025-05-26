@@ -1,14 +1,14 @@
 let cartas = [];
 let carrito = [];
 
-// Elementos del DOM
+// dom
 const catalogo = document.getElementById("catalogo");
 const colorFiltro = document.getElementById("colorFiltro");
 const legendariaFiltro = document.getElementById("legendariaFiltro");
 const verCarritoBtn = document.getElementById("verCarritoBtn");
 const carritoCantidad = document.getElementById("carritoCantidad");
 
-// Cargar cartas desde JSON al cargar la página
+// cargar cartas 
 document.addEventListener("DOMContentLoaded", () => {
   fetch("data/cartas.json")
     .then(response => response.json())
@@ -35,7 +35,7 @@ function renderizarCartas(lista) {
       </div>
     `;
 
-    // Confirmar antes de agregar al carrito
+    // antes de agregar al carrito
     cartaHTML.querySelector('.card').addEventListener('click', () => {
       Swal.fire({
         title: `¿Agregar "${carta.nombre}" al carrito?`,
@@ -55,7 +55,7 @@ function renderizarCartas(lista) {
   });
 }
 
-// Aplicar filtros por color y legendaria
+//  filtros por color y legendaria
 colorFiltro.addEventListener("change", aplicarFiltros);
 legendariaFiltro.addEventListener("change", aplicarFiltros);
 
@@ -77,7 +77,7 @@ function aplicarFiltros() {
   renderizarCartas(resultado);
 }
 
-// Mostrar el carrito
+// ver el carrito
 verCarritoBtn.addEventListener("click", () => {
   if (carrito.length === 0) {
     Swal.fire("Tu carrito está vacío.");
@@ -129,7 +129,7 @@ verCarritoBtn.addEventListener("click", () => {
   });
 });
 
-// Cambiar cantidad de cartas
+// sacar o poner  cartas
 function cambiarCantidad(id, cambio) {
   const index = carrito.findIndex(c => c.id === id);
   if (index !== -1) {
@@ -143,7 +143,7 @@ function cambiarCantidad(id, cambio) {
   }
 }
 
-// Agregar carta al carrito
+// agregar carta al carrito
 function agregarAlCarrito(id) {
   const seleccionada = cartas.find(c => c.id === id);
   const index = carrito.findIndex(c => c.id === id);
@@ -166,13 +166,13 @@ function agregarAlCarrito(id) {
   });
 }
 
-// Contador en el botón de carrito
+// funcionalidad contador  
 function actualizarContadorCarrito() {
   const totalCantidad = carrito.reduce((acc, c) => acc + c.cantidad, 0);
   carritoCantidad.textContent = totalCantidad;
 }
 
-// Vaciar carrito con confirmación
+// vaciar carrito con confirmación
 function confirmarVaciadoCarrito() {
   Swal.fire({
     title: "¿Estás seguro?",
@@ -190,7 +190,7 @@ function confirmarVaciadoCarrito() {
   });
 }
 
-// Vaciar carrito
+// vaciar carrito
 function vaciarCarrito() {
   carrito = [];
   actualizarContadorCarrito();
@@ -210,7 +210,7 @@ function cargarCarritoDesdeStorage() {
   }
 }
 
-// Formulario de compra al finalizar
+// formulario  de compra
 function mostrarFormularioCompra() {
   if (carrito.length === 0) {
     Swal.fire("Carrito vacío", "Agregá cartas antes de finalizar la compra.", "info");
