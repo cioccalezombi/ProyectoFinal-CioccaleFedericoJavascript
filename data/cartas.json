@@ -4,7 +4,7 @@
     "nombre": "Aegis",
     "color": "negro",
     "legendaria": false,
-    "imagen": "../assets/cartas/aegis.png",
+    "imagen": "assets/cartas/aegis.png",
     "precio": 500
   },
   {
@@ -12,7 +12,7 @@
     "nombre": "Alena",
     "color": "rojo",
     "legendaria": true,
-    "imagen": "../assets/cartas/alena.png",
+    "imagen": "assets/cartas/alena.png",
     "precio": 12000
   },
   {
@@ -20,7 +20,7 @@
     "nombre": "Alesha",
     "color": "rojo",
     "legendaria": true,
-    "imagen": "../assets/cartas/alesha.png",
+    "imagen": "assets/cartas/alesha.png",
     "precio": 8750
   },
   {
@@ -28,7 +28,7 @@
     "nombre": "Arashin",
     "color": "dorado",
     "legendaria": false,
-    "imagen": "../assets/cartas/arashin.png",
+    "imagen": "assets/cartas/arashin.png",
     "precio": 1250
   },
   {
@@ -36,7 +36,7 @@
     "nombre": "Archfiend",
     "color": "oscuro",
     "legendaria": false,
-    "imagen": "../assets/cartas/archfiend.png",
+    "imagen": "assets/cartas/archfiend.png",
     "precio": 800
   },
   {
@@ -44,7 +44,7 @@
     "nombre": "Bygone",
     "color": "negro",
     "legendaria": false,
-    "imagen": "../assets/cartas/bygone.png",
+    "imagen": "assets/cartas/bygone.png",
     "precio": 600
   },
   {
@@ -52,7 +52,7 @@
     "nombre": "Elranel",
     "color": "verde",
     "legendaria": false,
-    "imagen": "../assets/cartas/elranel.png",
+    "imagen": "assets/cartas/elranel.png",
     "precio": 1000
   },
   {
@@ -60,7 +60,7 @@
     "nombre": "Encantadora",
     "color": "oscuro",
     "legendaria": false,
-    "imagen": "../assets/cartas/encantadora.png",
+    "imagen": "assets/cartas/encantadora.png",
     "precio": 900
   },
   {
@@ -68,7 +68,7 @@
     "nombre": "Hechicera",
     "color": "azul",
     "legendaria": false,
-    "imagen": "../assets/cartas/hechicera.png",
+    "imagen": "assets/cartas/hechicera.png",
     "precio": 1500
   },
   {
@@ -76,7 +76,7 @@
     "nombre": "Lyna",
     "color": "rojo",
     "legendaria": false,
-    "imagen": "../assets/cartas/lyna.png",
+    "imagen": "assets/cartas/lyna.png",
     "precio": 700
   },
   {
@@ -84,7 +84,7 @@
     "nombre": "Rhoda",
     "color": "dorado",
     "legendaria": true,
-    "imagen": "../assets/cartas/rhoda.png",
+    "imagen": "assets/cartas/rhoda.png",
     "precio": 15000
   },
   {
@@ -92,7 +92,7 @@
     "nombre": "Selise",
     "color": "dorado",
     "legendaria": false,
-    "imagen": "../assets/cartas/selise.png",
+    "imagen": "assets/cartas/selise.png",
     "precio": 1100
   }
 ]
